@@ -115,7 +115,7 @@
 	}); 
 	
 	//Socket.io
-	var socket = io.connect('http://localhost:8080');
+	var socket = io.connect('http://infinite-mesa-8449.herokuapp.com/');
 
 	// on receive message from the server IDE, make update to IDE
 	socket.on('ide_message', function(data){
