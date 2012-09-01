@@ -6,6 +6,10 @@ var io = require('socket.io').listen(app);
 
 app.listen(8080);
 
+app.on('error', function(err) {
+    console.log('there was an error: ' + err.message); 
+	}); 
+
 // routing
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
