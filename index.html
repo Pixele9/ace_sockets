@@ -84,7 +84,7 @@
 			editor.setTheme(event.target.value);
 		}); 
 		
-		$('#editor').live("keypress", function(e)
+		$('#editor').keyup(function(e)
 		{		
 			console.log("hello"); 
 			startTypingTimer($(e.target));
@@ -115,7 +115,7 @@
 	}); 
 	
 	//Socket.io
-	var socket = io.connect('http://infinite-mesa-8449.herokuapp.com/');
+	var socket = io.connect('http://localhost:8080');
 
 	// on receive message from the server IDE, make update to IDE
 	socket.on('ide_message', function(data){
