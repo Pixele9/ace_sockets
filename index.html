@@ -1,15 +1,12 @@
 <span>
-<tr>
-    <td >
+    <tr>
+      <td >
         <label for="mode">Mode</label>
-    </td><td>
+      </td><td>
         <select id="mode" size="1">
-			<option value="ace/mode/javascript" selected="true">Javascript</option>
-            <option value="ace/mode/ruby">Ruby</option>
-            <option value="ace/mode/csharp">C#</option>
         </select>
-    </td>
-</tr>
+      </td>
+    </tr>
 
     <tr>
     <td >
@@ -73,6 +70,10 @@
 	//jQuery
 	$(document).ready(function(){
 	
+		for (var name in modesByName) {
+			$('select#mode').append('<option value="ace/mode/' + name + '">' + modesByName[name][0] + '</option>')
+		}
+	
 		$('body').addClass("loading"); 
 		
 		$('#mode').on('change', function(event){ 
@@ -115,7 +116,8 @@
 	}); 
 	
 	//Socket.io
-	var socket = io.connect('http://localhost:8080');
+	//var socket = io.connect('http://localhost:8080');
+	var socket = io.connect('http://infinite-mesa-8449.herokuapp.com');
 
 	// on receive message from the server IDE, make update to IDE
 	socket.on('ide_message', function(data){
@@ -173,6 +175,51 @@
 		var message = editor.getValue();
 		socket.emit('send_code', message);
 	});
+	
+	var modesByName = {
+    coffee:     ["CoffeeScript" , "coffee|^Cakefile"],
+    coldfusion: ["ColdFusion"   , "cfm"],
+    csharp:     ["C#"           , "cs"],
+    css:        ["CSS"          , "css"],
+    diff:       ["Diff"         , "diff|patch"],
+    glsl:       ["Glsl"         , "glsl|frag|vert"],
+    golang:     ["Go"           , "go"],
+    groovy:     ["Groovy"       , "groovy"],
+    haxe:       ["haXe"         , "hx"],
+    html:       ["HTML"         , "htm|html|xhtml"],
+    c_cpp:      ["C/C++"        , "c|cc|cpp|cxx|h|hh|hpp"],
+    clojure:    ["Clojure"      , "clj"],
+    java:       ["Java"         , "java"],
+    javascript: ["JavaScript"   , "js"],
+    json:       ["JSON"         , "json"],
+    jsx:        ["JSX"          , "jsx"],
+    latex:      ["LaTeX"        , "latex|tex|ltx|bib"],
+    less:       ["LESS"         , "less"],
+    liquid:     ["Liquid"       , "liquid"],
+    lua:        ["Lua"          , "lua"],
+    luapage:    ["LuaPage"      , "lp"], // http://keplerproject.github.com/cgilua/manual.html#templates
+    markdown:   ["Markdown"     , "md|markdown"],
+    ocaml:      ["OCaml"        , "ml|mli"],
+    perl:       ["Perl"         , "pl|pm"],
+    pgsql:      ["pgSQL"        , "pgsql"],
+    php:        ["PHP"          , "php|phtml"],
+    powershell: ["Powershell"   , "ps1"],
+    python:     ["Python"       , "py"],
+    ruby:       ["Ruby"         , "ru|gemspec|rake|rb"],
+    scad:       ["OpenSCAD"     , "scad"],
+    scala:      ["Scala"        , "scala"],
+    scss:       ["SCSS"         , "scss|sass"],
+    sh:         ["SH"           , "sh|bash|bat"],
+    sql:        ["SQL"          , "sql"],
+    svg:        ["SVG"          , "svg"],
+    tcl:        ["Tcl"          , "tcl"],
+    text:       ["Text"         , "txt"],
+    textile:    ["Textile"      , "textile"],
+    xml:        ["XML"          , "xml|rdf|rss|wsdl|xslt|atom|mathml|mml|xul|xbl"],
+    xquery:     ["XQuery"       , "xq"],
+    yaml:       ["YAML"         , "yaml"]
+};
+	
 </script>
 
 <div class="modal"><!-- Place at bottom of page --></div>
